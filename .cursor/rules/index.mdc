@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Perplexica Cursor Rules 索引
+
+欢迎使用 Perplexica 项目的 Cursor Rules！这些规则将帮助 AI 更好地理解和导航项目代码。
+
+## 可用规则
+
+### 1. [项目概览和架构](mdc:.cursor/rules/perplexica.mdc)
+包含项目的整体介绍、技术栈、目录结构和重要文件的快速参考。
+
+### 2. [开发工作流程和最佳实践](mdc:.cursor/rules/development-workflow.mdc)
+详细的开发指南，包括环境设置、功能开发、测试策略和部署流程。
+
+## 快速开始
+
+1. **新开发者**：先阅读项目概览了解整体架构
+2. **功能开发**：参考开发工作流程文档
+3. **问题排查**：查看常见问题和调试技巧
+
+## 关键信息
+
+- **项目类型**：AI 搜索引擎 (Next.js + TypeScript)
+- **主要依赖**：LangChain、Drizzle ORM、Tailwind CSS
+- **API 文档**：[docs/API/SEARCH.md](mdc:docs/API/SEARCH.md)
+- **架构文档**：[docs/architecture/README.md](mdc:docs/architecture/README.md)
+
+## 注意事项
+
+- 始终使用 TypeScript 并遵循类型安全
+- 修改代码前先理解现有功能
+- 保持代码风格一致性
+- 测试所有新功能
+

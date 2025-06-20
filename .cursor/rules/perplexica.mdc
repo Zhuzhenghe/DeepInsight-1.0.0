@@ -1,0 +1,143 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Perplexica 项目指南
+
+## 项目概述
+
+Perplexica 是一个开源的 AI 驱动搜索引擎，灵感来自 Perplexity AI。它不仅搜索网络，还能理解用户的问题，使用先进的机器学习算法来提供准确的答案。
+
+### 主要特性
+- **本地 LLM 支持**：支持通过 Ollama 使用 Llama3、Mixtral 等本地模型
+- **多种搜索模式**：包括 Copilot 模式和普通模式
+- **专注模式**：6 种专注模式（全网搜索、写作助手、学术搜索、YouTube、Wolfram Alpha、Reddit）
+- **实时信息**：使用 SearxNG 元搜索引擎获取最新信息
+- **API 支持**：提供 REST API 供第三方应用集成
+
+## 技术栈
+
+- **前端框架**：Next.js 15 (App Router)
+- **编程语言**：TypeScript
+- **样式**：Tailwind CSS
+- **数据库**：SQLite + Drizzle ORM
+- **AI/LLM**：
+  - LangChain.js
+  - 支持多种模型提供商（OpenAI、Anthropic、Groq、Ollama、DeepSeek、Gemini）
+- **搜索引擎**：SearxNG
+- **部署**：Docker
+
+## 项目结构
+
+### 核心目录
+- [src/app/](mdc:src/app) - Next.js App Router 页面和 API 路由
+- [src/components/](mdc:src/components) - React 组件
+- [src/lib/](mdc:src/lib) - 核心业务逻辑和工具函数
+
+### 重要文件
+
+#### 配置和设置
+- [sample.config.toml](mdc:sample.config.toml) - 配置模板文件
+- [src/lib/config.ts](mdc:src/lib/config.ts) - 配置加载和验证逻辑
+- [drizzle.config.ts](mdc:drizzle.config.ts) - Drizzle ORM 配置
+
+#### API 路由
+- [src/app/api/chat/route.ts](mdc:src/app/api/chat/route.ts) - 聊天 API
+- [src/app/api/search/route.ts](mdc:src/app/api/search/route.ts) - 搜索 API
+- [src/app/api/images/route.ts](mdc:src/app/api/images/route.ts) - 图片搜索 API
+- [src/app/api/videos/route.ts](mdc:src/app/api/videos/route.ts) - 视频搜索 API
+- [src/app/api/models/route.ts](mdc:src/app/api/models/route.ts) - 模型列表 API
+
+#### 核心组件
+- [src/components/Chat.tsx](mdc:src/components/Chat.tsx) - 主聊天组件
+- [src/components/ChatWindow.tsx](mdc:src/components/ChatWindow.tsx) - 聊天窗口
+- [src/components/MessageBox.tsx](mdc:src/components/MessageBox.tsx) - 消息显示组件
+- [src/components/MessageInput.tsx](mdc:src/components/MessageInput.tsx) - 消息输入组件
+
+#### AI/搜索逻辑
+- [src/lib/search/metaSearchAgent.ts](mdc:src/lib/search/metaSearchAgent.ts) - 元搜索代理
+- [src/lib/chains/imageSearchAgent.ts](mdc:src/lib/chains/imageSearchAgent.ts) - 图片搜索代理
+- [src/lib/chains/videoSearchAgent.ts](mdc:src/lib/chains/videoSearchAgent.ts) - 视频搜索代理
+- [src/lib/providers/](mdc:src/lib/providers) - LLM 提供商接口
+
+#### 数据库
+- [src/lib/db/schema.ts](mdc:src/lib/db/schema.ts) - 数据库模式定义
+- [src/lib/db/index.ts](mdc:src/lib/db/index.ts) - 数据库连接和初始化
+
+## 编码约定
+
+### TypeScript 规范
+- 使用严格的 TypeScript 配置
+- 为所有导出的函数和组件定义类型
+- 优先使用接口（interface）而不是类型别名（type）
+- 避免使用 `any` 类型
+
+### 组件规范
+- 使用函数组件和 React Hooks
+- 组件文件名使用 PascalCase
+- 将复杂的逻辑抽取到自定义 hooks 中
+- 使用 Tailwind CSS 进行样式设置
+
+### API 规范
+- 使用 Next.js App Router 的 Route Handlers
+- 返回标准的 HTTP 状态码
+- 使用 JSON 格式进行请求和响应
+- 实现适当的错误处理
+
+### 文件命名
+- 组件文件：PascalCase (例如：`MessageBox.tsx`)
+- 工具函数：camelCase (例如：`formatHistory.ts`)
+- API 路由：使用 `route.ts` 文件名
+
+## 开发流程
+
+### 本地开发
+1. 安装依赖：`yarn install` 或 `npm install`
+2. 配置环境：复制 `sample.config.toml` 为 `config.toml` 并填写必要配置
+3. 数据库初始化：`npm run db:push`
+4. 启动开发服务器：`npm run dev`
+
+### Docker 开发
+1. 确保 Docker 已安装并运行
+2. 配置 `config.toml` 文件
+3. 运行：`docker compose up -d`
+
+### 构建和部署
+- 构建：`npm run build`
+- 启动生产服务器：`npm start`
+- Docker 部署：使用提供的 `docker-compose.yaml`
+
+## 重要提示
+
+### Ollama 连接
+- Windows/Mac：使用 `http://host.docker.internal:11434`
+- Linux：使用主机的私有 IP 地址
+- 确保 Ollama 服务正在运行且端口未被防火墙阻止
+
+### 搜索引擎配置
+- 需要配置 SearxNG 实例
+- 确保 SearxNG 允许 JSON 格式输出
+
+### 性能优化
+- 使用 embeddings 和相似度搜索优化搜索结果
+- 实现了响应流式传输以提高用户体验
+- 使用 SQLite 本地数据库减少延迟
+
+## 贡献指南
+
+请参考 [CONTRIBUTING.md](mdc:CONTRIBUTING.md) 了解如何为项目贡献代码。
+
+## 调试技巧
+
+1. 检查 `config.toml` 配置是否正确
+2. 确保所有必需的服务（SearxNG、Ollama 等）正在运行
+3. 查看浏览器控制台和网络请求以调试前端问题
+4. 使用 Next.js 的开发模式查看详细错误信息
+
+## 常见问题
+
+1. **Ollama 连接错误**：检查 API URL 配置和网络设置
+2. **搜索无结果**：确保 SearxNG 配置正确且可访问
+3. **模型加载失败**：验证 API 密钥和模型名称是否正确
+

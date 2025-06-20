@@ -1,0 +1,57 @@
+[GENERAL]
+SIMILARITY_MEASURE = "cosine" # "cosine" or "dot"
+KEEP_ALIVE = "5m" # How long to keep Ollama models loaded into memory. (Instead of using -1 use "-1m")
+
+[MODELS.OPENAI]
+API_KEY = ""
+
+[MODELS.GROQ]
+API_KEY = ""
+
+[MODELS.ANTHROPIC]
+API_KEY = ""
+
+[MODELS.GEMINI]
+API_KEY = ""
+
+[MODELS.CUSTOM_OPENAI]
+API_KEY = ""
+API_URL = ""
+MODEL_NAME = ""
+
+[MODELS.OLLAMA]
+API_URL = "" # Ollama API URL - http://host.docker.internal:11434
+
+[MODELS.DEEPSEEK]
+API_KEY = ""
+
+[API_ENDPOINTS]
+SEARXNG = "" # SearxNG API URL - http://localhost:32768
+
+# 用户认证配置
+[AUTH]
+ENABLE_REGISTRATION = true # 是否允许新用户注册
+REQUIRE_EMAIL_VERIFICATION = false # 是否需要邮箱验证
+PASSWORD_MIN_LENGTH = 8 # 密码最小长度
+JWT_SECRET = "your-secret-key-change-in-production" # JWT 密钥，生产环境必须修改
+JWT_EXPIRE_TIME = "7d" # JWT 过期时间
+SESSION_EXPIRE_TIME = "24h" # 会话过期时间
+BCRYPT_ROUNDS = 10 # 密码加密强度
+
+# 用户配额设置
+[QUOTAS]
+FREE_DAILY_TOKENS = 1000 # 免费用户每日 Token 限制
+FREE_MONTHLY_TOKENS = 30000 # 免费用户每月 Token 限制
+PRO_DAILY_TOKENS = -1 # Pro 用户每日 Token 限制，-1 表示无限制
+PRO_MONTHLY_TOKENS = -1 # Pro 用户每月 Token 限制，-1 表示无限制
+
+# 定价设置
+[PRICING]
+PRICE_PER_1K_TOKENS = 0.002 # 每 1000 tokens 的价格（美元）
+PRO_MONTHLY_PRICE = 20.0 # Pro 版月费（美元）
+
+# 管理员初始账号
+[ADMIN]
+INITIAL_EMAIL = "admin@example.com" # 初始管理员邮箱
+INITIAL_PASSWORD = "admin123456" # 初始管理员密码，首次登录后请立即修改
+INITIAL_USERNAME = "admin" # 初始管理员用户名
